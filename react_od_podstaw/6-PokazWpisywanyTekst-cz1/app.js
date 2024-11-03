@@ -1,13 +1,18 @@
 const Input = ({ handleChange, handleReset, value, ...props }) => {
   return (
     <div>
-      <input type="text" onChange={(e) => handleChange(e)} value={value} />
+      <input
+        type="text"
+        onChange={(e) => handleChange(e)}
+        value={value}
+        placeholder="wpisz coś..."
+      />
       <button onClick={() => handleReset()}>Reset</button>
     </div>
   );
 };
 
-const Text = ({ text, ...props }) => <p>{text}</p>;
+const Text = ({ text, ...props }) => <p className="title">{text}</p>;
 
 class App extends React.Component {
   state = {
