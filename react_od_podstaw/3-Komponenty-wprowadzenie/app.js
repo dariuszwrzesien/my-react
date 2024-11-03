@@ -1,36 +1,48 @@
-// komponent funkcyjny, bezstanowy (stateless)
-
 const Header = () => {
-  return <h1>Witaj na stronie</h1>
+  return <h1>Witaj na stronie!</h1>;
+};
 
-}
+class Blog extends React.Component {
+  state = {
+    number: 0,
+  };
 
-// komponent klasowy, stanowy (stateful)
+  test = {
+    test1: 1,
+  };
 
-class Article extends React.Component {
-  // state = {
-  //   number: 0,
-  // }
+  componentDidMount() {
+    this.interval = setInterval(() => {
+      this.setState({ number: this.state.number + 1 });
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
 
   render() {
     return (
-      <section>
-
-        <h2>Artykuł</h2>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint quia beatae consequatur a, modi voluptatibus repudiandae. Optio rem hic quam, ducimus esse qui, itaque, suscipit nemo odio commodi odit aspernatur.</p>
-      </section>
-    )
+      <div>
+        <h1>artykuł! {this.state.number}</h1>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint quia
+          beatae consequatur a, modi voluptatibus repudiandae. Optio rem hic
+          quam, ducimus esse qui, itaque, suscipit nemo odio commodi odit
+          aspernatur.
+        </p>
+      </div>
+    );
   }
 }
 
-const Blog = () => {
+const App = () => {
   return (
     <>
       <Header />
-      <Article />
+      <Blog />
     </>
-  )
-}
+  );
+};
 
-ReactDOM.render(<Blog />, document.getElementById('root'))
-
+ReactDOM.render(<App />, document.getElementById("root"));

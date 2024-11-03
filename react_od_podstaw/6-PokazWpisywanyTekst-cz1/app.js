@@ -1,30 +1,39 @@
+const Input = ({ handleChange, handleReset, value, ...props }) => {
+  return (
+    <div>
+      <input type="text" onChange={(e) => handleChange(e)} value={value} />
+      <button onClick={() => handleReset()}>Reset</button>
+    </div>
+  );
+};
+
+const Text = ({ text, ...props }) => <p>{text}</p>;
+
 class App extends React.Component {
   state = {
-    value: ""
-  }
+    text: "",
+  };
 
-  handleInputChange = (e) => {
-    console.log(e.target.value);
-    this.setState({
-      value: e.target.value
-    })
-  }
+  handleChange = (e) => {
+    this.setState({ text: e.target.value });
+  };
 
-  handleResetClick = () => {
-    this.setState({
-      value: ""
-    })
-  }
+  handleReset = () => {
+    this.setState({ text: "" });
+  };
 
   render() {
     return (
-      <React.Fragment>
-        <input value={this.state.value} placeholder="wpisz..." onChange={this.handleInputChange} type="text" />
-        <button onClick={this.handleResetClick}>Reset</button>
-        <h1 className="title">{this.state.value.toUpperCase()}</h1>
-      </React.Fragment>
-    )
+      <>
+        <Input
+          handleChange={this.handleChange}
+          handleReset={this.handleReset}
+          value={this.state.text}
+        />
+        <Text text={this.state.text} />
+      </>
+    );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<App />, document.getElementById("root"));
