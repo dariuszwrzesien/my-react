@@ -1,10 +1,11 @@
-const Input = ({ handleChange, handleReset, value, ...props }) => {
+const Input = ({ handleChange, handleReset, value, inputRef, ...props }) => {
   return (
     <div>
       <input
         type="text"
         onChange={(e) => handleChange(e)}
         value={value}
+        ref={inputRef}
         placeholder="wpisz coś..."
       />
       <button onClick={() => handleReset()}>Reset</button>
@@ -19,12 +20,16 @@ class App extends React.Component {
     text: "",
   };
 
+  inputRef = React.createRef();
+
   handleChange = (e) => {
     this.setState({ text: e.target.value });
   };
 
   handleReset = () => {
-    this.setState({ text: "" });
+    this.setState({ text: "" }, () => {
+      this.inputRef.current.focus();
+    });
   };
 
   render() {
@@ -34,6 +39,7 @@ class App extends React.Component {
           handleChange={this.handleChange}
           handleReset={this.handleReset}
           value={this.state.text}
+          inputRef={this.inputRef}
         />
         <Text text={this.state.text} />
       </>
