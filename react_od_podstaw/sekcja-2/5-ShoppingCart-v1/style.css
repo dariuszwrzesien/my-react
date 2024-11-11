@@ -15,8 +15,14 @@ button {
   height: 50px;
   cursor: pointer;
   outline: none;
-  
 }
 button:disabled {
-  opacity: 0.3
+  opacity: 0.3;
+}
+
+.available {
+  color: gray;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12px;
+  margin: 0 10px;
 }

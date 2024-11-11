@@ -1,56 +1,67 @@
-// const Dollars = (props) => (
-//   <div>Wartość w dolarach: {props.cash <= 0 ? "" : (props.cash / props.ratio).toFixed(2)}</div>
-// )
-
-// const Euros = (props) => {
-//   const value = (props.cash / props.ratio).toFixed(2)
-//   return (
-//     <div>Wartość w euro: {props.cash <= 0 ? "" : value}</div>
-//   )
-// }
-
-const Cash = (props) => {
-  const value = (props.cash / props.ratio).toFixed(2)
-  return (
-    <div>{props.title} {props.cash <= 0 ? "" : value}</div>
-  )
-}
+const UNIT = {
+  PETROL: "petrol",
+  ORANGES: "oranges",
+};
 
 class ExchangeCounter extends React.Component {
-
   state = {
-    amount: "",
-    ratioDollar: 3.6,
-    ratioEuro: 4.2,
-  }
+    value: 0,
+    unit: UNIT.PETROL,
+    usd: 0,
+    eur: 0,
+  };
 
-  handleChange = e => {
+  conversionFactor = {
+    petrol: 5.5,
+    oranges: 3.2,
+    usd: 3.6,
+    eur: 4.2,
+  };
+
+  handleAmountChange = (e, unit) => {
+    const value = parseFloat(e.target.value);
+    const usd = (
+      (value * this.conversionFactor[unit]) /
+      this.conversionFactor.usd
+    ).toFixed(2);
+    const eur = (
+      (value * this.conversionFactor[unit]) /
+      this.conversionFactor.eur
+    ).toFixed(2);
+
     this.setState({
-      amount: e.target.value
-    })
-  }
+      value,
+      usd: isNaN(usd) ? 0 : usd,
+      eur: isNaN(eur) ? 0 : eur,
+    });
+  };
+
+  handleOnChangeUnit = (e) => {
+    const unit = e.target.value;
+    this.setState({
+      unit,
+    });
+  };
 
   render() {
-
-    const { amount, ratioDollar, ratioEuro } = this.state;
-
+    const { value, unit, usd, eur } = this.state;
     return (
-      <div className="app">
-        <label>
-          <input
-            type="number"
-            value={this.state.amount}
-            onChange={this.handleChange}
-          />
-        </label>
-        {/* <Dollars cash={amount} ratio={ratioDollar} /> */}
-        {/* <Euros cash={amount} ratio={ratioEuro} /> */}
-        <Cash cash={amount} ratio={ratioDollar} title="Wartość w dolarach: " />
-        <Cash cash={amount} ratio={ratioEuro} title="Wartość w euro: " />
-
+      <div>
+        <h1>Wybierz:</h1>
+        <select name="unit" onChange={this.handleOnChangeUnit}>
+          <option value={UNIT.PETROL}>Benzyna</option>
+          <option value={UNIT.ORANGES}>Pomarańcze</option>
+        </select>
+        <input
+          type="number"
+          name="amount"
+          value={value}
+          onChange={(e) => this.handleAmountChange(e, unit)}
+        />
+        <p>$: {usd}</p>
+        <p>&euro;: {eur}</p>
       </div>
-    )
-
+    );
   }
 }
-ReactDOM.render(<ExchangeCounter />, document.getElementById('root'))
+ReactDOM.render(<ExchangeCounter />, document.getElementById("root"));

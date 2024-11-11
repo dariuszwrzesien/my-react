@@ -35,31 +35,31 @@ class App extends React.Component {
     }));
   };
 
-  displayBuyButton = () => {
-    const { shoppingCart, availableProducts } = this.state;
-    if (shoppingCart && shoppingCart <= availableProducts) {
-      return <button onClick={() => this.handleBuy()}>KUP</button>;
-    }
-  };
-
   render() {
     const { shoppingCart, availableProducts } = this.state;
+    const counterStyle = shoppingCart === 0 ? { opacity: 0.3 } : null;
+
     return (
       <>
-        <CartActionButton
-          action={CART_ACTION.REMOVE}
-          label={CART_ACTION.REMOVE_LABEL}
-          isDisabled={!shoppingCart}
-          click={this.handleCartAction(CART_ACTION.REMOVE)}
-        />
-        <span> {shoppingCart} </span>
-        <CartActionButton
-          action={CART_ACTION.ADD}
-          label={CART_ACTION.ADD_LABEL}
-          isDisabled={shoppingCart >= availableProducts}
-          click={this.handleCartAction(CART_ACTION.ADD)}
-        />
-        {this.displayBuyButton()}
+        <div>
+          <CartActionButton
+            action={CART_ACTION.REMOVE}
+            label={CART_ACTION.REMOVE_LABEL}
+            isDisabled={!shoppingCart}
+            click={this.handleCartAction(CART_ACTION.REMOVE)}
+          />
+          <span style={counterStyle}> {shoppingCart} </span>
+          <CartActionButton
+            action={CART_ACTION.ADD}
+            label={CART_ACTION.ADD_LABEL}
+            isDisabled={shoppingCart >= availableProducts}
+            click={this.handleCartAction(CART_ACTION.ADD)}
+          />
+          {shoppingCart > 0 && shoppingCart <= availableProducts && (
+            <button onClick={() => this.handleBuy()}>KUP</button>
+          )}
+        </div>
+        <span class="available">Available: {availableProducts}</span>
       </>
     );
   }
