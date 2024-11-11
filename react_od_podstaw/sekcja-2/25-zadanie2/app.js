@@ -1,112 +1,42 @@
-// https://websamuraj.pl/examples/react/zadanie-lista/
-// Wykorzystaj dwa komponenty: rodzica ( o nazwie List) i dziecka (o nazwie Person)
-
-// wersja 1 i 2
-// const Person = props => {
-//   return (
-//     <li>
-//       <span>{props.name}</span>
-//       <button onClick={props.delete}>Usuń</button>
-//     </li>
-//   )
-// }
-
-// wersja 3
-const Person = props => {
+const ListItem = ({ item, remove, ...props }) => {
   return (
     <li>
-      <span>{props.name}</span>
-      <button onClick={() => props.delete(props.name)}>Usuń</button>
+      {item}
+      <button onClick={() => remove(item)}>Usuń</button>
     </li>
-  )
-}
+  );
+};
 
 class List extends React.Component {
-
   state = {
-    people: [
-      { id: 10, name: 'Jan K.' },
-      { id: 20, name: 'Piotr C.' },
-      { id: 30, name: 'Marysia W.' },
-      { id: 40, name: 'John S.' },
-    ]
-  }
-  // wersja 1
-  // handleDelete(id) {
-  //   // console.log(this, id);
-  //   const people = [...this.state.people];
-  //   const index = people.findIndex(person => person.id === id)
-  //   // console.log(index);
-  //   people.splice(index, 1)
-  //   // console.log(people);
-  //   this.setState({
-  //     people
-  //   })
-  // }
+    items: this.props.initList,
+  };
 
-  // wersja 2
-  // handleDelete (name){
-  //   // let people = Array.from(this.state.people);
-  //   let people = this.state.people.slice()
-  //   // console.log(people);
-  //   people = people.filter(person => name !== person.name)
-  //   console.log(people);
-  //   this.setState({
-  //     people
-  //   })
-  // }
-
-  // wersja 3
-  handleDelete = name => {
-    // let people = Array.from(this.state.people);
-    let people = this.state.people.slice()
-    // console.log(people);
-    people = people.filter(person => name !== person.name)
-    console.log(people);
+  handleRemove = (item) => {
+    const items = this.state.items.filter((el) => el !== item);
     this.setState({
-      people
-    })
-  }
+      items,
+    });
+  };
 
   render() {
-
-    // wersja 1
-    // const people = this.state.people.map(person => (
-    //   <Person
-    //     key={person.id}
-    //     name={person.name}
-    //     delete={this.handleDelete.bind(this, person.id)}
-    //   />
-    // )
-    // )
-
-    // wersja 2
-    // const people = this.state.people.map(person => (
-    //   <Person
-    //     key={person.id}
-    //     name={person.name}
-    //     delete={this.handleDelete.bind(this, person.name)}
-    //   />
-    // )
-    // )
-
-    // wersja 3
-    const people = this.state.people.map(person => (
-      <Person
-        key={person.id}
-        name={person.name}
-        delete={this.handleDelete}
-      />
-    )
-    )
-
-
+    const { items } = this.state;
     return (
-      <ul>
-        {people}
-      </ul>
-    )
+      <>
+        {items.length > 0 ? (
+          <ul>
+            {items.map((item) => (
+              <ListItem key={item} item={item} remove={this.handleRemove} />
+            ))}
+          </ul>
+        ) : (
+          <p>Brak elementów</p>
+        )}
+      </>
+    );
   }
 }
 
-ReactDOM.render(<List />, document.getElementById('root'))
+const initList = ["item1", "item2", "item3", "item4", "item5"];
+
+ReactDOM.render(<List initList={initList} />, document.getElementById("root"));
