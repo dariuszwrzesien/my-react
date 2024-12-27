@@ -1,13 +1,14 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Product from "./pages/Product";
-import Pricing from "./pages/Pricing";
-import Homepage from "./pages/Homepage";
-import PageNotFound from "./pages/PageNotFound";
-import Login from "./pages/Login";
-import AppLayout from "./pages/AppLayout";
-import CityList from "./components/CityList";
-import { useEffect, useState } from "react";
-import CountryList from "./components/CountryList";
+import { useEffect, useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import CityList from './components/CityList';
+import CountryList from './components/CountryList';
+import AppLayout from './pages/AppLayout';
+import Homepage from './pages/Homepage';
+import Login from './pages/Login';
+import PageNotFound from './pages/PageNotFound';
+import Pricing from './pages/Pricing';
+import Product from './pages/Product';
 
 function App() {
   const [cities, setCities] = useState([]);
@@ -15,12 +16,12 @@ function App() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch("http://localhost:3001/cities")
+    fetch('http://localhost:3001/cities')
       .then((response) => response.json())
       .then((data) => {
         setCities(data);
       })
-      .catch((error) => alert("There was an error loading the cities", error))
+      .catch((error) => alert('There was an error loading the cities', error))
       .finally(() => setIsLoading(false));
   }, []);
 

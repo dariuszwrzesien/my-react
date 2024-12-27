@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import styles from "./CountryItem.module.css";
+import styles from './CountryItem.module.css';
 
 function CountryItem({ country }) {
   return (

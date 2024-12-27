@@ -1,15 +1,15 @@
 /* eslint-disable react/prop-types */
-import styles from "./CityItem.module.css";
+import styles from './CityItem.module.css';
 
 function CityItem({ city }) {
   const { cityName, emoji, date } = city;
 
   const formatDate = (date) =>
-    new Intl.DateTimeFormat("en", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-      weekday: "long",
+    new Intl.DateTimeFormat('en', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      weekday: 'long',
     }).format(new Date(date));
 
   return (

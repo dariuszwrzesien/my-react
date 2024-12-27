@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import CityItem from "./CityItem";
-import styles from "./CityList.module.css";
-import Spinner from "./Spinner";
-import Message from "./Message";
+import CityItem from './CityItem';
+import styles from './CityList.module.css';
+import Message from './Message';
+import Spinner from './Spinner';
 
 function CityList({ cities, isLoading }) {
   if (isLoading) return <Spinner />;
