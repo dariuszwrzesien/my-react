@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import PageNotFound from './pages/PageNotFound';
 import Pricing from './pages/Pricing';
 import Product from './pages/Product';
+import City from './components/City';
 
 function App() {
   const [cities, setCities] = useState([]);
@@ -38,6 +39,7 @@ function App() {
             path="cities"
             element={<CityList cities={cities} isLoading={isLoading} />}
           />
+          <Route path="cities/:id" element={<City />} />
           <Route
             path="countries"
             element={<CountryList cities={cities} isLoading={isLoading} />}
